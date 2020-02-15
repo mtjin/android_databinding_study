@@ -47,7 +47,14 @@ class PlainOldActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // 데이터 바인딩
         var binding: PlainActivityBinding = DataBindingUtil.setContentView(this, R.layout.plain_activity)
+
+        // - lifecycleOwner를 통해서 ViewModel을 LifeCycle에 종속시켜서, 다양한 라이프사이클 문제를 해결할 수 있다.
+        // - ViewModel을 통해서 관심사 분리를 통해 클래스들의 의존성을 낮출 수 있다.
+        // - ViewModel을 통해서 액티비티, 프레그먼트 등의 데이터를 공유할 수 있다.
+        // [출처] https://gamjatwigim.tistory.com/88
         binding.lifecycleOwner = this  // use Fragment.viewLifecycleOwner for fragments
+
+        // ViewModel binding
         binding.viewmodel = viewModel
     }
 }

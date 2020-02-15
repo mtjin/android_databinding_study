@@ -39,9 +39,8 @@ class SimpleViewModel : ViewModel() {
     fun onLike() {
         _likes.value = (_likes.value ?: 0) + 1
     }
-    /**
-     * Returns popularity in buckets: [Popularity.NORMAL], [Popularity.POPULAR] or [Popularity.STAR]
-     */
+
+    // popularity is exposed as LiveData using a Transformation instead of a @Bindable property.
     val popularity: LiveData<Popularity> = Transformations.map(_likes) {
         when {
             it > 9 -> Popularity.STAR
