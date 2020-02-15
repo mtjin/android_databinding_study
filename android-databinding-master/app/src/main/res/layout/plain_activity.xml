@@ -21,10 +21,9 @@
     >
 
     <data>
-       <variable
-           name="viewmodel"
-           type="com.example.android.databinding.basicsample.data.SimpleViewModel"
-           />
+        <variable
+            name="viewmodel"
+            type="com.example.android.databinding.basicsample.data.SimpleViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +31,7 @@
         android:layout_height="match_parent"
         >
 
+        <!-- A simple binding between a TextView and a string observable in the ViewModel -->
         <TextView
             android:id="@+id/plain_name"
             android:text="@{viewmodel.name}"
@@ -46,6 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/name_label"
             />
 
+        <!-- A simple binding between a TextView and a string observable in the ViewModel -->
         <TextView
             android:id="@+id/plain_lastname"
             android:text="@{viewmodel.lastName}"
@@ -60,8 +61,12 @@
             app:layout_constraintTop_toBottomOf="@+id/lastname_label"
             />
 
+        <!-- A custom Binding Adapter (`app:popularityIcon`) is used passing `viewmodel.popularity`
+        as a parameter. Because it's a @Bindable property, the ImageView is automatically updated.
+        -->
         <ImageView
             android:id="@+id/imageView"
+            app:popularityIcon="@{viewmodel.popularity}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -76,8 +81,11 @@
             app:layout_constraintVertical_chainStyle="packed"
             />
 
+        <!-- Conversions like Integer to String are expressions simple enough for the layout. An
+       alternative would be to create a getter in the ViewModel to expose likes as Strings. -->
         <TextView
             android:id="@+id/likes"
+            android:text="@{Integer.toString(viewmodel.likes)}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -88,6 +96,8 @@
             app:layout_constraintTop_toBottomOf="@+id/likes_label"
             />
 
+        <!-- Listeners can accept lambdas so in this case the ViewModel deals with the event,
+        bypassing the activity. -->
         <Button
             android:id="@+id/like_button"
             android:layout_width="wrap_content"
@@ -141,6 +151,10 @@
             />
 
         <ProgressBar
+            android:max="@{100}"
+            app:progressScaled="@{viewmodel.likes}"
+            app:hideIfZero="@{viewmodel.likes}"
+            app:progressTint="@{viewmodel.popularity}"
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
