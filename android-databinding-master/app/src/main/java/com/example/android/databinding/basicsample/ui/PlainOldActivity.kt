@@ -46,18 +46,8 @@ class PlainOldActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // 데이터 바인딩
         var binding: PlainActivityBinding = DataBindingUtil.setContentView(this, R.layout.plain_activity)
-        binding.name ="Mt"
-        binding.lastName = "Jin"
+        binding.viewmodel = viewModel
 
-        updateLikes()
-    }
-
-    /**
-     * This method is triggered by the `android:onclick` attribute in the layout. It puts business
-     * logic in the activity, which is not ideal. We should do something about that.
-     */
-    fun onLike(view: View) {
-        viewModel.onLike()
         updateLikes()
     }
 
